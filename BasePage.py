@@ -17,6 +17,7 @@ class BasePage():
 
     footer_xpath = ("xpath","//footer[@class='Footer_root___6Q28']")
     footer_text = ("xpath","//p[@class='text2 Footer_text___ATim']")
+    accept_cookie_btn = ("xpath", "/html/body/div[2]/button")
 
     # getters
 
@@ -29,7 +30,16 @@ class BasePage():
         return self.wait.until(EC.visibility_of_element_located(self.footer_text))
 
 
+    def get_cookie_button(self):
+        return self.wait.until(EC.element_to_be_clickable(self.accept_cookie_btn))
+
+
     # actions
+
+
+    def click_accept_cookie_btn(self):
+        self.get_cookie_button().click()
+        print("Приняты куки")
 
 
     def go_to_main_url(self):
@@ -49,3 +59,4 @@ class BasePage():
         """
         footer = self.get_footer()
         self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'end'});", footer)
+        print(f"скролл до футера на странице {self.driver.current_url}")
